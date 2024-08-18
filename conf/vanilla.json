@@ -1,0 +1,31 @@
+{
+  "AssetManagerSettings": {
+    "PrimaryAssetLabel" : [
+      "/Game",
+      "/BlackCoast",
+      "/Harju",
+      "/SanxianIslands"
+    ],
+    "SQLevel" : [
+      "/Game/Maps",
+      "/BlackCoast",
+      "/Harju/Maps",
+      "/SanxianIslands",
+      "/Game/Settings/Maps"
+    ],
+    "SQLayer" : [
+      "/Game/Maps",
+      "/BlackCoast",
+      "/Harju/Maps",
+      "/SanxianIslands",
+      "/Game/Settings/Maps"
+    ],
+    "SQFaction" : [
+      "/Game/Settings"
+    ],
+    "SQFactionSetup" : [
+      "/Game/Settings",
+      "/SanxianIslands/Maps/FactionSetups"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "SquadSDKPath": "C:\\Program Files\\Epic Games\\SquadEditor",
+  "ModName": "YOUR_MOD",
+  "PathToExcludeFromAssetValidator": [
+    "PATH_A",
+    "PATH_B"
+  ],
+  "AssetManagerSettings": {
+    "PrimaryAssetLabel" : [],
+    "SQLevel" : [],
+    "SQLayer" : [],
+    "SQFaction" : [],
+    "SQFactionSetup" : []
+  },
+  "DirectoriesToNeverCook": []
+}
