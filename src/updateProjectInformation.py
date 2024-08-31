@@ -7,11 +7,9 @@ import unreal
 import re
 
 # Add the lib directory to the sys.path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'lib'))
+sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lib'))
 
 from iniFile import read_ini_file, write_ini_file
-
-SDK_ROOT_PATH = "C:\\Program Files\\Epic Games\\SquadEditor\\"
 
 def load_mod_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
