@@ -4,6 +4,19 @@ import json
 import tkinter as tk
 from tkinter import filedialog
 import re
+import unreal
+
+def get_squadSDK_installation_folder():
+    """
+    Returns the folder where SDK is installed.
+    """
+    # Get the base directory of the SDK editor.
+    base_dir = unreal.SystemLibrary.get_project_directory()
+
+    # Move up three directories to get the installation folder
+    installation_folder = os.path.abspath(os.path.join(base_dir, ".."))
+
+    return installation_folder
 
 def read_ini_file(file_path):
     """
@@ -53,11 +66,10 @@ def load_mod_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
     with open(json_file_path, 'r') as file:
         data = json.load(file)
-        squad_sdk_path = data.get("SquadSDKPath", "")
         paths_to_exclude_from_asset_validator = data.get("PathToExcludeFromAssetValidator" ,[])
         asset_manager_settings = data.get("AssetManagerSettings" ,{})
         directories_to_never_cook = data.get("DirectoriesToNeverCook" ,[])
-    return squad_sdk_path, paths_to_exclude_from_asset_validator, asset_manager_settings, directories_to_never_cook
+    return paths_to_exclude_from_asset_validator, asset_manager_settings, directories_to_never_cook
 
 def load_vanilla_json_data():
     """Load data from a JSON file and extract specific keys."""
@@ -195,6 +207,9 @@ def update_directories_to_never_cook(squad_sdk_path, paths_to_not_cook):
     print("Updated .ini file with new directories to never cook.")
 
 def main():
+
+    squad_sdk_path = get_squadSDK_installation_folder()
+
     # Create a Tkinter root window and hide it
     root = tk.Tk()
     root.withdraw()
@@ -211,7 +226,7 @@ def main():
         print("No file selected. Exiting.")
         return
     
-    squad_sdk_path, paths_to_exclude_from_asset_validator, mod_asset_manager_settings, directories_to_never_cook = load_mod_json_data(json_mod_file_path)
+    paths_to_exclude_from_asset_validator, mod_asset_manager_settings, directories_to_never_cook = load_mod_json_data(json_mod_file_path)
     vanilla_asset_manager_settings = load_vanilla_json_data()
     
     # Add the mod as exclude for the asset validator during cook
