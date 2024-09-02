@@ -3,13 +3,51 @@ import os
 import json
 import tkinter as tk
 from tkinter import filedialog
-import unreal
 import re
 
-# Add the lib directory to the sys.path
-sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lib'))
+def read_ini_file(file_path):
+    """
+    Reads the .ini file and returns its contents as a dictionary.
+    """
+    config = {}
+    current_section = None
 
-from iniFile import read_ini_file, write_ini_file
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                line = line.strip()
+                if not line or line.startswith(';'):  # Skip empty lines and comments
+                    continue
+                if line.startswith('[') and line.endswith(']'):
+                    current_section = line[1:-1]
+                    config[current_section] = []
+                elif '=' in line and current_section:
+                    key, value = line.split('=', 1)
+                    config[current_section].append((key.strip(), value.strip()))
+    except FileNotFoundError:
+        print(f"Error: The file '{file_path}' was not found.")
+    except IOError as e:
+        print(f"Error: An I/O error occurred while reading the file '{file_path}'. Details: {e}")
+    except Exception as e:
+        print(f"Error: An unexpected error occurred. Details: {e}")
+
+    return config
+
+def write_ini_file(file_path, config):
+    """
+    Writes the updated config dictionary back to the .ini file.
+    """
+    try:
+        with open(file_path, 'w') as file:
+            for section, options in config.items():
+                file.write(f'[{section}]\n')
+                for key, value in options:
+                    file.write(f'{key}={value}\n')
+                file.write('\n')
+    except IOError as e:
+        print(f"Error: An I/O error occurred while writing to the file '{file_path}'. Details: {e}")
+    except Exception as e:
+        print(f"Error: An unexpected error occurred. Details: {e}")
 
 def load_mod_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
