@@ -3,14 +3,26 @@ import glob
 import json
 import tkinter as tk
 from tkinter import filedialog
+import unreal
+
+def get_squadSDK_installation_folder():
+    """
+    Returns the folder where SDK is installed.
+    """
+    # Get the base directory of the SDK editor.
+    base_dir = unreal.SystemLibrary.get_project_directory()
+
+    # Move up three directories to get the installation folder
+    installation_folder = os.path.abspath(os.path.join(base_dir, ".."))
+
+    return installation_folder
 
 def load_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
     with open(json_file_path, 'r') as file:
         data = json.load(file)
-        squad_sdk_path = data.get("SquadSDKPath", "")
         mod_name = data.get("ModName", "")
-    return squad_sdk_path, mod_name
+    return mod_name
 
 def remove_files(squad_sdk_path, mod_name):
     """Find and remove specific files within the specified path."""
@@ -26,6 +38,8 @@ def remove_files(squad_sdk_path, mod_name):
             print(f"Error: {e.filename} - {e.strerror}")
 
 def main():
+    squad_sdk_path = get_squadSDK_installation_folder()
+
     # Create a Tkinter root window and hide it
     root = tk.Tk()
     root.withdraw()
@@ -43,7 +57,7 @@ def main():
         return
     
     # Load JSON data and extract necessary information
-    squad_sdk_path, mod_name = load_json_data(json_file_path)
+    mod_name = load_json_data(json_file_path)
     
     # Remove files based on the Squad SDK path
     remove_files(squad_sdk_path, mod_name)
