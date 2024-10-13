@@ -19,7 +19,7 @@ def get_squadSDK_installation_folder():
 
 def load_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
-    with open(json_file_path, 'r') as file:
+    with open(json_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         mod_name = data.get("ModName", "")
     return mod_name
