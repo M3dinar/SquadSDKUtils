@@ -26,7 +26,7 @@ def read_ini_file(file_path):
     current_section = None
 
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-16') as file:
             for line in file:
                 line = line.strip()
                 if not line or line.startswith(';'):  # Skip empty lines and comments
@@ -51,7 +51,7 @@ def write_ini_file(file_path, config):
     Writes the updated config dictionary back to the .ini file.
     """
     try:
-        with open(file_path, 'w') as file:
+        with open(file_path, 'w', encoding='utf-16') as file:
             for section, options in config.items():
                 file.write(f'[{section}]\n')
                 for key, value in options:
@@ -64,7 +64,7 @@ def write_ini_file(file_path, config):
 
 def load_mod_json_data(json_file_path):
     """Load data from a JSON file and extract specific keys."""
-    with open(json_file_path, 'r') as file:
+    with open(json_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         paths_to_exclude_from_asset_validator = data.get("PathToExcludeFromAssetValidator" ,[])
         asset_manager_settings = data.get("AssetManagerSettings" ,{})
@@ -74,7 +74,7 @@ def load_mod_json_data(json_file_path):
 def load_vanilla_json_data():
     """Load data from a JSON file and extract specific keys."""
     json_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'conf', 'vanilla.json')
-    with open(json_file_path, 'r') as file:
+    with open(json_file_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
         asset_manager_settings = data.get("AssetManagerSettings", {})
     return asset_manager_settings
