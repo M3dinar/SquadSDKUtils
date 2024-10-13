@@ -7,7 +7,7 @@ Select your mod configuration file
 Check the UE4 output log
 # Scripts
 ## postCook
-src/postcook.py
+src/postCook.py
 
 It removes the file "DevelopmentAssetRegistry.bin" from the cooked package.
 Run it when your cook process succeed and before uploading your mod into the steam workshop.
